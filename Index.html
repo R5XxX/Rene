@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Día de la Amistad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: transparent;
+        }
+        
+        #video-fondo, #video-nuevo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        #mensaje {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.8rem; /* Ajustado para que no se salga de la pantalla */
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+            white-space: nowrap; /* Mantiene el texto en una sola línea */
+            display: none;
+        }
+
+        #contenedor {
+            position: absolute;
+            bottom: 5%; /* Movido a la parte inferior */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        #boton {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 30px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #boton:hover {
+            background: rgba(255, 255, 255, 0.5);
+            color: black;
+        }
+
+        #video-nuevo {
+            display: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop id="video-fondo">
+        <source src="ssstik.io_@amysticalwitch_1739592603720.mp4" type="video/mp4">
+        Tu navegador no soporta videos en HTML5.
+    </video>
+
+    <h1 id="mensaje">¡FELIZ DÍA DE LA AMISTAD, ALE!</h1>
+
+    <div id="contenedor">
+        <div id="boton" onclick="cambiarVideo()">DALE CLICK AQUÍ 🫶🏽</div>
+    </div>
+
+    <video id="video-nuevo">
+        <source src="ssstik.io_@ollieiwaszko_1739571716120.mp4" type="video/mp4">
+        Tu navegador no soporta videos en HTML5.
+    </video>
+
+    <script>
+        function cambiarVideo() {
+            document.getElementById("video-fondo").style.display = "none";
+            document.getElementById("boton").style.display = "none";
+            let videoNuevo = document.getElementById("video-nuevo");
+            let mensaje = document.getElementById("mensaje");
+
+            videoNuevo.style.display = "block";
+            mensaje.style.display = "block"; 
+            videoNuevo.play();
+
+            lanzarConfeti();
+
+            videoNuevo.onended = function() {
+                reiniciarVideos();
+            };
+        }
+
+        function reiniciarVideos() {
+            document.getElementById("video-fondo").style.display = "block";
+            document.getElementById("video-nuevo").style.display = "none";
+            document.getElementById("boton").style.display = "block";
+            document.getElementById("mensaje").style.display = "none";
+        }
+
+        function lanzarConfeti() {
+            for (let i = 0; i < 50; i++) {
+                let emoji = document.createElement("div");
+                emoji.innerHTML = "🌹";
+                emoji.style.position = "fixed";
+                emoji.style.left = Math.random() * window.innerWidth + "px";
+                emoji.style.top = "-50px";
+                emoji.style.fontSize = "2rem";
+                emoji.style.opacity = Math.random();
+                document.body.appendChild(emoji);
+
+                let animacion = emoji.animate([
+                    { transform: "translateY(0px)" },
+                    { transform: `translateY(${window.innerHeight + 50}px)` }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: "linear"
+                });
+
+                animacion.onfinish = () => emoji.remove();
+            }
+        }
+    </script>
+
+</body>
+</html>
